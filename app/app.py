@@ -20,6 +20,33 @@ sys.path.insert(0, os.path.dirname(__file__))
 from iot_simulator import generate_batch, get_alert_color
 from ml_model import train_model
 
+
+# Sidebar
+st.sidebar.title("ℹ️ About")
+st.sidebar.info(
+    """
+    **RoadSense India 🚦**
+
+    A data analytics dashboard to explore road accident patterns across India.
+
+    👤 Created by: Akshith  
+    🔗 GitHub: https://github.com/PENAKAAKSHITH/RoadSense-India  
+    """
+)
+
+# Main app
+st.title("🚦 RoadSense India Dashboard")
+
+df = pd.read_csv("data/cleaned.csv")
+
+st.subheader("Dataset Preview")
+st.dataframe(df.head())
+
+st.subheader("Accidents by State")
+state_data = df.groupby('state')['accidents'].sum().sort_values(ascending=False)
+
+st.bar_chart(state_data)
+
 # ════════════════════════════════════════════════════════════
 # PAGE CONFIG
 # ════════════════════════════════════════════════════════════
